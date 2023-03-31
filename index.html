@@ -30,7 +30,7 @@
             <div class="modal_body">
                 <p class="modal_body_text" id="show" readonly></p>
             </div>
-          </div>
+        </div>
     </div>
     <div id="label-container"></div>
 
@@ -104,36 +104,43 @@
         async function predict() {
             // predict can take in an image, video or canvas html element
             var image = document.getElementById('recycle-image');
-            var p=document.getElementById("show")
+            var p = document.getElementById("show")
+            const close = document.querySelector(".modal_close")
             const prediction = await model.predict(image, false);
             if (prediction[0].probability.toFixed(2) >= 0.8) {
                 status = "plastic"
-                p.innerHTML= "<img src='./result/plastic.jpeg' width='300px;'>";
+                p.innerHTML = "<img src='./result/plastic.jpeg' width='300px;'>";
             } else if (prediction[1].probability.toFixed(2) >= 0.8) {
                 status = "cardboard"
-                p.innerHTML= "<img src='./result/cardboard.jpeg' width='300px;'>";
+                p.innerHTML = "<img src='./result/cardboard.jpeg' width='300px;'>";
             } else if (prediction[2].probability.toFixed(2) >= 0.8) {
                 status = "glass_bottle"
-                p.innerHTML= "<img src='./result/glass_bottle.jpeg' width='300px;'>";
+                p.innerHTML = "<img src='./result/glass_bottle.jpeg' width='300px;'>";
             } else if (prediction[3].probability.toFixed(2) >= 0.8) {
                 status = "can"
-                p.innerHTML= "<img src='./result/can.jpeg' width='300px;'>";
+                p.innerHTML = "<img src='./result/can.jpeg' width='300px;'>";
             } else if (prediction[4].probability.toFixed(2) >= 0.8) {
                 status = "styroform"
-                p.innerHTML= "<img src='./result/styroform.jpg' width='300px;'>";
+                p.innerHTML = "<img src='./result/styroform.jpg' width='300px;'>";
             } else if (prediction[5].probability.toFixed(2) >= 0.8) {
                 status = "battery"
-                p.innerHTML= "<img src='./result/battery.png' width='300px;'>";
+                p.innerHTML = "<img src='./result/battery.png' width='300px;'>";
             } else if (prediction[6].probability.toFixed(2) >= 0.8) {
                 status = "plastic_cup"
-                p.innerHTML= "<img src='./result/plastic_cup.jpeg' width='300px;'>";
+                p.innerHTML = "<img src='./result/plastic_cup.jpeg' width='300px;'>";
             } else {
                 status = "unknown"
-                p.innerHTML= "<img src='./result/unknown.jpeg' width='300px;'>";
+                p.innerHTML = "<img src='./result/unknown.jpeg' width='300px;'>";
             }
             const modal = document.querySelector('.modal');
             modal.style.display = 'block';
-          }
+
+            window.onclick = function(event) {
+                if (event.target == modal) {
+                    modal.style.display = "none";
+                }
+            }
+        }
     </script>
 
 </body>
@@ -144,5 +151,4 @@ Permission is hereby granted, free of charge, to any person obtaining a copy of 
 The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
  
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. -->
-
 </html>
